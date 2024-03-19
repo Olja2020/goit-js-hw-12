@@ -3,7 +3,11 @@ import iziToast from 'izitoast';
 // Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 import axios from 'axios';
-
+// Controls the group number
+ let page = 1;
+// Controls the number of items in the group
+let limit = 15;
+const totalPages = Math.ceil(100 / limit);
 
 const button = document.querySelector('button');
 const inputSearch = document.querySelector('.search');
@@ -13,18 +17,23 @@ import { renderUsers } from './render-functions';
 export async function fetchImages() {
   let inputSearchValue = inputSearch.value;
   const url = `https://pixabay.com/api/?key=42766573-a347fa67a5b7233d1286bfaa7&q=${inputSearchValue}&image_type=photo&orientation=horizontal&safesearch=true`;
+  {
+      const params = new URLSearchParams({
+        _limit: limit,
+        _page: page
+      });
 
   if (inputSearchValue) {
     setTimeout(() => {
-      
-      const response = await axios.get(url)
+      //try {
+      const response =  axios.get(url)
         .then(response => {
           
         return response.json();
         })
-
+      
         .then(data => {
-          if (data.hits.length === 0) {
+          if (response.data.hits.length === 0) {
             iziToast.error({
               title: '',
               message:
@@ -36,18 +45,19 @@ export async function fetchImages() {
               total: data.total,
               images: data.hits,
             };
-            renderUsers(data.hits);
+            renderUsers(response.data.hits);
           }
-        })
-
+      })
+      
         .catch(error => {
           console.log(error);
         })
         .finally(() => {
           loader.style.display = 'none';
         });
-    }, 1000);
+  }, 1000);
   }
+}
 }
 
 
@@ -109,4 +119,39 @@ export async function fetchImages() {
 //     })
 //     .join("");
 //   postList.insertAdjacentHTML("beforeend", markup);
+// }
+// ********************************
+// export async function fetchImages() {
+//   let inputSearchValue = inputSearch.value;
+//   const url = https://pixabay.com/api/?key=42766573-a347fa67a5b7233d1286bfaa7&q=${inputSearchValue}&image_type=photo&orientation=horizontal&safesearch=true;
+
+//   if (inputSearchValue) {
+//     setTimeout(() => {
+//       axios.get(url)
+//         .then(response => {
+//           return response.data;
+//         })
+//         .then(data => {
+//           if (data.hits.length === 0) {
+//             iziToast.error({
+//               title: '',
+//               message: 'Sorry, there are no images matching your search query. Please try again!',
+//             });
+//           } else {
+//             const imagesData = {
+//               totalHits: data.totalHits,
+//               total: data.total,
+//               images: data.hits,
+//             };
+//             renderUsers(data.hits);
+//           }
+//         })
+//         .catch(error => {
+//           console.log(error);
+//         })
+//         .finally(() => {
+//           loader.style.display = 'none';
+//         });
+//     }, 1000);
+//   }
 // }
