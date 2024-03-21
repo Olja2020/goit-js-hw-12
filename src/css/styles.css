@@ -144,3 +144,6 @@ span {
     transform: rotate(360deg);
   }
 }
+.load {
+  display: none;
+}
