@@ -107,6 +107,7 @@ button {
   background: #4e75ff;
   justify-content: center;
   margin-bottom: 10px;
+  margin: 10px auto;
 }
 span {
   display: block;
@@ -146,4 +147,5 @@ span {
 }
 .load {
   display: none;
+  margin: 10px auto;
 }
