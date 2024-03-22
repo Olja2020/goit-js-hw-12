@@ -1,10 +1,11 @@
 import SimpleLightbox from 'simplelightbox';
-// Додатковий імпорт стилів
-import 'simplelightbox/dist/simple-lightbox.min.css';const imagesGallery = document.querySelector('.gallery');
+
+import 'simplelightbox/dist/simple-lightbox.min.css';
+const imagesGallery = document.querySelector('.gallery');
 const form = document.querySelector('.form');
 
 export function renderUsers(images) {
-  form.reset();
+  //form.reset();
 
   const markup = images
     .map(image => {
