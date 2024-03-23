@@ -5,8 +5,6 @@ const imagesGallery = document.querySelector('.gallery');
 const form = document.querySelector('.form');
 
 export function renderUsers(images) {
-  //form.reset();
-
   const markup = images
     .map(image => {
       return `<div class="card">
