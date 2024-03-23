@@ -17,7 +17,7 @@ const loader = document.querySelector('.loader');
 const loadMoreButton = document.querySelector('.load');
 
 export let page = 1;
-export let per_page = 100;
+export let per_page = 15;
 export let inputSearchValue = '';
 const totalPages = Math.ceil(100 / per_page);
 const gallery = new SimpleLightbox('.gallery a', {

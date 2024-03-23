@@ -7,9 +7,7 @@ import iziToast from 'izitoast';
 
 import 'izitoast/dist/css/iziToast.min.css';
 
-//let page = 1;
-
-let per_page = 100;
+let per_page = 15;
 const totalPages = Math.ceil(100 / per_page);
 
 const loadMoreButton = document.querySelector('.load');
