@@ -17,7 +17,7 @@ const loader = document.querySelector('.loader');
 const loadMoreButton = document.querySelector('.load');
 
 export let page = 1;
-export let per_page = 3;
+export let per_page = 15;
 export let inputSearchValue = '';
 const totalPages = Math.ceil(100 / per_page);
 const gallery = new SimpleLightbox('.gallery a', {
@@ -40,12 +40,11 @@ const submitSearchImages = form.addEventListener('submit', async function (e) {
       .firstElementChild.getBoundingClientRect();
     window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
   } catch (error) {
-      iziToast.error({
+    iziToast.error({
       color: 'red',
       message: `:x: Sorry, there was a mistake. Please try again!`,
       position: 'topRight',
     });
-    
   }
 
   form.reset();
@@ -61,7 +60,7 @@ const loadMoreImages = loadMoreButton.addEventListener(
       const response = await fetchImages();
       page += 1;
       loader.style.display = 'none';
-      
+
       if (page > response.totalHits / per_page) {
         loadMoreButton.style.display = 'none';
         return iziToast.error({
