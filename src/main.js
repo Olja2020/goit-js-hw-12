@@ -36,6 +36,10 @@ const submitSearchImages = form.addEventListener('submit', async function (e) {
     const response = await fetchImages();
     loadMoreButton.style.display = 'block';
     page += 1;
+    const { height: cardHeight } = document
+      .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+    window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
   } catch (error) {
     iziToast.error({
       color: 'red',
@@ -67,6 +71,10 @@ const loadMoreImages = loadMoreButton.addEventListener(
           position: 'topRight',
         });
       }
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+      window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
     } catch (error) {
       console.log(error);
     }
