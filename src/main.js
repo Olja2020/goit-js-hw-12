@@ -9,7 +9,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImages } from './js/pixabay-api';
 import { renderUsers } from './js/render-functions';
 
-const button = document.querySelector('button');
+const button = document.querySelector('.searchButton');
 const inputSearch = document.querySelector('.search');
 const imagesGallery = document.querySelector('.gallery');
 const form = document.querySelector('.form');
@@ -62,7 +62,7 @@ const loadMoreImages = loadMoreButton.addEventListener(
       page += 1;
       loader.style.display = 'none';
       loadMoreButton.style.display = 'block';
-      console.log(page, response.totalHits);
+
       if (page > response.totalHits / per_page) {
         loadMoreButton.style.display = 'none';
         return iziToast.error({
