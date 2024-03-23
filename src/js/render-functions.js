@@ -23,7 +23,7 @@ export function renderUsers(images) {
     })
     .join('');
 
-  imagesGallery.innerHTML = markup;
+  imagesGallery.insertAdjacentHTML('beforeend', markup);
   const lightbox = new SimpleLightbox('.gallery a');
   lightbox.refresh();
 }

@@ -16,9 +16,9 @@ const form = document.querySelector('.form');
 const loader = document.querySelector('.loader');
 const loadMoreButton = document.querySelector('.load');
 
-let page = 1;
-let per_page = 15;
-export let inputSearchValue = inputSearch.value;
+export let page = 1;
+export let per_page = 100;
+export let inputSearchValue = '';
 const totalPages = Math.ceil(100 / per_page);
 const gallery = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
@@ -27,10 +27,11 @@ const gallery = new SimpleLightbox('.gallery a', {
 
 const submitSearchImages = form.addEventListener('submit', async function (e) {
   e.preventDefault();
+
   page = 1;
   loader.style.display = 'flex';
   imagesGallery.innerHTML = '';
-
+  inputSearchValue = e.target.elements.searchImages.value;
   try {
     const response = await fetchImages();
     loadMoreButton.style.display = 'block';
@@ -43,26 +44,37 @@ const submitSearchImages = form.addEventListener('submit', async function (e) {
     });
   }
 
-  // form.reset();
+  form.reset();
 });
 const loadMoreImages = loadMoreButton.addEventListener(
   'click',
   async function (e) {
     e.preventDefault();
 
-    loader.style.display = 'none';
-
+    loader.style.display = 'flex';
+    loadMoreButton.style.display = 'none';
     try {
-      //  await fetchImages();
       const response = await fetchImages();
+      page += 1;
+      loader.style.display = 'none';
+      loadMoreButton.style.display = 'block';
+      console.log(page, response.totalHits);
+      if (page > response.totalHits / per_page) {
+        loadMoreButton.style.display = 'none';
+        return iziToast.error({
+          color: 'blue',
+          message: `:x: We're sorry, but you've reached the end of search results.`,
+          position: 'topRight',
+        });
+      }
     } catch (error) {
-      iziToast.error({
-        color: 'red',
-        message: `:x: Sorry, there was a mistake. Please try again!`,
-        position: 'topRight',
-      });
+      console.log(error);
     }
-
-    //form.reset();
   }
 );
+
+// const { height: cardHeight } = document
+//   .querySelector('.gallery')
+//   .firstElementChild.getBoundingClientRect();
+
+// window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
