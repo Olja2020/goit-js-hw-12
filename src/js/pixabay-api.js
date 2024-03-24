@@ -6,7 +6,7 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 
 import 'izitoast/dist/css/iziToast.min.css';
-let per_page = 15;
+let per_page = 150;
 
 const loadMoreButton = document.querySelector('.load');
 const button = document.querySelector('.searchButton');
@@ -32,6 +32,11 @@ export async function fetchImages() {
         renderUsers(response.data.hits);
         loadMoreButton.style.display = 'none';
         loader.style.display = 'none';
+        iziToast.error({
+          color: 'blue',
+          message: `:x: We're sorry, but you've reached the end of search results.`,
+          position: 'topRight',
+        });
       } else {
         loader.style.display = 'flex';
         renderUsers(response.data.hits);
