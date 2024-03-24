@@ -6,7 +6,7 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 
 import 'izitoast/dist/css/iziToast.min.css';
-let per_page = 8;
+let per_page = 15;
 
 const loadMoreButton = document.querySelector('.load');
 const button = document.querySelector('.searchButton');
