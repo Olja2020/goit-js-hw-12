@@ -24,17 +24,18 @@ const gallery = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
   captionsData: 'alt',
 });
-
+debugger;
 const submitSearchImages = form.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   page = 1;
-  loader.style.display = 'flex';
+  //loader.style.display = 'flex';
   imagesGallery.innerHTML = '';
   inputSearchValue = e.target.elements.searchImages.value;
   try {
     const response = await fetchImages();
     page += 1;
+
     const { height: cardHeight } = document
       .querySelector('.gallery')
       .firstElementChild.getBoundingClientRect();
@@ -54,12 +55,12 @@ const loadMoreImages = loadMoreButton.addEventListener(
   async function (e) {
     e.preventDefault();
 
-    loader.style.display = 'flex';
-    loadMoreButton.style.display = 'none';
+    // loader.style.display = 'none';
+    //loadMoreButton.style.display = 'none';
     try {
       const response = await fetchImages();
       page += 1;
-      loader.style.display = 'none';
+      //loader.style.display = 'none';
 
       if (page > response.totalHits / per_page) {
         loadMoreButton.style.display = 'none';
