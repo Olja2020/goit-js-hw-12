@@ -6,7 +6,7 @@ import axios from 'axios';
 import iziToast from 'izitoast';
 
 import 'izitoast/dist/css/iziToast.min.css';
-import { per_page } from '../main.js';
+let per_page = 15;
 
 const loadMoreButton = document.querySelector('.load');
 const button = document.querySelector('.searchButton');
@@ -26,10 +26,14 @@ export async function fetchImages() {
       if (response.data.hits.length === 0) {
         loader.style.display = 'none';
         loadMoreButton.style.display = 'none';
-      } else {
+      } else if (response.totalHits > per_page) {
         renderUsers(response.data.hits);
         loader.style.display = 'none';
         loadMoreButton.style.display = 'block';
+      } else {
+        renderUsers(response.data.hits);
+        loader.style.display = 'none';
+        loadMoreButton.style.display = 'none';
       }
 
       return response.data;
