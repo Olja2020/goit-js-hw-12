@@ -27,10 +27,11 @@ export async function fetchImages() {
       if (response.data.hits.length === 0) {
         loader.style.display = 'none';
         loadMoreButton.style.display = 'none';
-      } else if (response.totalHits < per_page) {
+      } else if (response.data.totalHits < per_page) {
         loader.style.display = 'flex';
         renderUsers(response.data.hits);
         loadMoreButton.style.display = 'none';
+        loader.style.display = 'none';
       } else {
         loader.style.display = 'flex';
         renderUsers(response.data.hits);
