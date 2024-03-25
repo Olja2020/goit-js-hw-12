@@ -28,7 +28,7 @@ export async function fetchImages() {
         loader.style.display = 'none';
         loadMoreButton.style.display = 'none';
       } else if (response.data.totalHits < per_page) {
-        loader.style.display = 'flex';
+        //loader.style.display = 'flex';
         renderUsers(response.data.hits);
         loadMoreButton.style.display = 'none';
         loader.style.display = 'none';
@@ -38,10 +38,10 @@ export async function fetchImages() {
           position: 'topRight',
         });
       } else {
-        loader.style.display = 'flex';
+        //loader.style.display = 'flex';
         renderUsers(response.data.hits);
-        loadMoreButton.style.display = 'block';
-        loader.style.display = 'none';
+        //loadMoreButton.style.display = 'block';
+        // loader.style.display = 'none';
       }
 
       return response.data;

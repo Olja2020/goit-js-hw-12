@@ -27,17 +27,20 @@ const gallery = new SimpleLightbox('.gallery a', {
 const submitSearchImages = form.addEventListener('submit', async function (e) {
   e.preventDefault();
   page = 1;
+  loadMoreButton.style.display = 'none';
   loader.style.display = 'flex'; // Показати лоадер
   imagesGallery.innerHTML = '';
   inputSearchValue = e.target.elements.searchImages.value;
   try {
     const response = await fetchImages();
     page += 1;
+    loadMoreButton.style.display = 'block';
     const { height: cardHeight } = document
       .querySelector('.gallery')
       .firstElementChild.getBoundingClientRect();
     window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
   } catch (error) {
+    loadMoreButton.style.display = 'none';
     iziToast.error({
       color: 'red',
       message: `:x: Sorry, there was a mistake. Please try again!`,
@@ -52,6 +55,7 @@ const loadMoreImages = loadMoreButton.addEventListener(
   'click',
   async function (e) {
     e.preventDefault();
+    loadMoreButton.style.display = 'none';
     loader.style.display = 'flex'; // Показати лоадер
     try {
       const response = await fetchImages();
@@ -64,6 +68,7 @@ const loadMoreImages = loadMoreButton.addEventListener(
           position: 'topRight',
         });
       }
+      loadMoreButton.style.display = 'block';
       const { height: cardHeight } = document
         .querySelector('.gallery')
         .firstElementChild.getBoundingClientRect();
@@ -71,7 +76,8 @@ const loadMoreImages = loadMoreButton.addEventListener(
     } catch (error) {
       console.log(error);
     } finally {
-      loader.style.display = 'none'; // Приховати лоадер
+      loader.style.display = 'none';
+      // Приховати лоадер
     }
   }
 );
