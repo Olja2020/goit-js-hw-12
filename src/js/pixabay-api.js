@@ -40,7 +40,8 @@ export async function fetchImages() {
       } else {
         //loader.style.display = 'flex';
         renderUsers(response.data.hits);
-        //loadMoreButton.style.display = 'block';
+        if (response.data.totalHits > per_page) 
+        {loadMoreButton.style.display = 'block';}
         // loader.style.display = 'none';
       }
 

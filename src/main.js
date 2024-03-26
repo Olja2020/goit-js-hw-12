@@ -34,7 +34,7 @@ const submitSearchImages = form.addEventListener('submit', async function (e) {
   try {
     const response = await fetchImages();
     page += 1;
-    loadMoreButton.style.display = 'block';
+   // loadMoreButton.style.display = 'block';
     const { height: cardHeight } = document
       .querySelector('.gallery')
       .firstElementChild.getBoundingClientRect();
