@@ -41,6 +41,7 @@ if (response.data.hits.length === 0) {
   renderUsers(response.data.hits);
   if (response.data.totalHits > per_page * page) {
       loadMoreButton.style.display = 'block';
+      loader.style.display = 'none';
   }
 }
 
