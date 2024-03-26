@@ -24,28 +24,31 @@ export async function fetchImages() {
     try {
       const response = await axios.get(url);
 
-      if (response.data.hits.length === 0) {
-        loader.style.display = 'none';
-        loadMoreButton.style.display = 'none';
-      } else if (response.data.totalHits < per_page) {
-        //loader.style.display = 'flex';
-        renderUsers(response.data.hits);
-        loadMoreButton.style.display = 'none';
-        loader.style.display = 'none';
-        iziToast.error({
-          color: 'blue',
-          message: `:x: We're sorry, but you've reached the end of search results.`,
-          position: 'topRight',
-        });
-      } else {
-        //loader.style.display = 'flex';
-        renderUsers(response.data.hits);
-        if (response.data.totalHits > per_page) 
-        {loadMoreButton.style.display = 'block';}
-        // loader.style.display = 'none';
-      }
 
-      return response.data;
+if (response.data.hits.length === 0) {
+  loader.style.display = 'none';
+  loadMoreButton.style.display = 'none';
+} else if (response.data.totalHits <= per_page * page) {
+  renderUsers(response.data.hits);
+  loadMoreButton.style.display = 'none';
+  loader.style.display = 'none';
+  iziToast.error({
+      color: 'blue',
+      message: 'We\'re sorry, but you\'ve reached the end of search results.',
+      position: 'topRight',
+  });
+} else {
+  renderUsers(response.data.hits);
+  if (response.data.totalHits > per_page * page) {
+      loadMoreButton.style.display = 'block';
+  }
+}
+
+return response.data;
+
+
+
+      
     } catch (error) {
       console.log(error);
     }
